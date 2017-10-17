@@ -1,5 +1,13 @@
 package com.daidonef.hobbiedata;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.springframework.ui.Model;
+
 public class Account {
 	
 	private int accountID;
@@ -63,6 +71,46 @@ public class Account {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public static String accessAccount(List<Account> accounts, Model model, HttpServletRequest request,
+			HttpSession session) {
+		
+		if (isNotAccount(accounts, model)) {
+			return "login";
+		}
+		
+		Account account = accounts.get(0);
+		
+		if (isPassword(account, model, request, session)) {
+			return "hobbies";
+		}
+		
+		return "login";
+		
+	}
+	
+	private static boolean isNotAccount(List<Account> accounts, Model model) {
+		
+		if (accounts.size() == 0) {
+			model.addAttribute("wrongUserName", "Wrong username.  Please try again!");
+			return true;
+		}
+		return false;
+	}
+	
+	private static boolean isPassword(Account account, Model model, HttpServletRequest request,
+			HttpSession session) {
+		
+		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+		
+		if (passwordEncryptor.checkPassword(request.getParameter("password"), account.getPassword())) {
+			session.setAttribute("account", account);
+			return true;
+		}
+		
+		model.addAttribute("wrongPassword", "Wrong password.  Please try again!");
+		return false;
 	}
 
 }
