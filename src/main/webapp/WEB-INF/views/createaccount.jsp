@@ -10,6 +10,8 @@
 
 <h1>Create Account</h1>
 
+<p>${userNameExist }</p>
+
 <div>
 	<form name="createAccount" onsubmit="return validation()" action="createaccount" method="post">
 

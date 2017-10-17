@@ -112,5 +112,31 @@ public class Account {
 		model.addAttribute("wrongPassword", "Wrong password.  Please try again!");
 		return false;
 	}
+	
+	public static String addAccount(List<Account> accounts, Model model, HttpServletRequest request, 
+			HttpSession session) {
+		
+		if (doesUserNameExist(accounts)) {
+			model.addAttribute("userNameExist", "Username already exist choose another.");
+			return "createAccount";
+		}
+		
+		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+		String password = passwordEncryptor.encryptPassword(request.getParameter("password"));
+		
+		Account account = new Account(request.getParameter("userName"), request.getParameter("firstName"), 
+				request.getParameter("lastName"), request.getParameter("email"), password);
+		session.setAttribute("account", account);
+		
+		return "hobbies";
+	}
+	
+	public static boolean doesUserNameExist(List<Account> accounts) {
+		
+		if (accounts.size() == 0) {
+			return false;
+		}
+		return true;
+	}
 
 }

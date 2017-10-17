@@ -52,8 +52,10 @@ public class HomeController {
 		
 		//If user is not login will return to login page, it is login then return to hobbies
 		if (session.getAttribute("account") == null) {
-			String page = Account.accessAccount(accounts, model, request, session);
-			return page;
+			if (request.getParameter("firstName") != null) {
+				return Account.addAccount(accounts, model, request, session);
+			}
+			return Account.accessAccount(accounts, model, request, session);
 		}
 		
 		return "hobbies";
