@@ -19,7 +19,6 @@
 		<br>First Name: <input type="text" class="inside" name="firstName"> 
 		<br>Last Name: <input type="text" class="inside" name="lastName"> 
 		<br>password: <input type="password" class="inside" name="password"> 
-		<br>Phone Number: <input type="text" class="inside" name="phoneNumber"> 
 		<br>Email: <input type="text" class="inside" name="email"> 
 		<br><br>
 		

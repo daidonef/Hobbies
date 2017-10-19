@@ -1,6 +1,11 @@
 package com.daidonef.hobbiedata;
 
 import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.ui.Model;
 
 public class Hobbies {
 	
@@ -80,6 +85,17 @@ public class Hobbies {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	//Stores all hobbies for an account holder
+	public static List<Hobbies> accessHobbies(Account account, Model model, HttpSession session) {
+		
+		List<Hobbies> hobbies = HobbiesDAO.getHobbies(HobbiesQuery.gettingHobbies(account.getAccountID()));
+		
+		session.setAttribute("hobbies", hobbies);
+		model.addAttribute("hobbies", hobbies);
+		
+		return hobbies;
 	}
 	
 }

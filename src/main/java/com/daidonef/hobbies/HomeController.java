@@ -40,6 +40,8 @@ public class HomeController {
 	@RequestMapping(value = "/createaccount", method = RequestMethod.POST)
 	public String createAccount(Model model, HttpServletRequest request) {
 		
+		request.getSession(true).invalidate();
+		
 		return "createaccount";
 	}
 	
@@ -57,6 +59,8 @@ public class HomeController {
 			}
 			return Account.accessAccount(accounts, model, request, session);
 		}
+		
+		model.addAttribute("hobbies", session.getAttribute("hobbies"));
 		
 		return "hobbies";
 	}

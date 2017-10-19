@@ -83,6 +83,10 @@ public class Account {
 		Account account = accounts.get(0);
 		
 		if (isPassword(account, model, request, session)) {
+			
+			//Stores hobbies of account user in sessions "hobbies" and model "hobbies".
+			Hobbies.accessHobbies(account, model, session);
+			
 			return "hobbies";
 		}
 		
@@ -126,6 +130,8 @@ public class Account {
 		
 		Account account = new Account(request.getParameter("userName"), request.getParameter("firstName"), 
 				request.getParameter("lastName"), request.getParameter("email"), password);
+		
+		account.setAccountID(AccountDAO.addAccount(account));
 		session.setAttribute("account", account);
 		
 		return "hobbies";
