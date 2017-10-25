@@ -60,6 +60,8 @@ public class HomeController {
 			return Account.accessAccount(accounts, model, request, session);
 		}
 		
+		//Methods for adding Hobbies, Genre, Items, and Location objects
+		
 		model.addAttribute("hobbies", session.getAttribute("hobbies"));
 		
 		return "hobbies";

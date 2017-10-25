@@ -15,6 +15,10 @@ public class Item {
 	private double rating;
 	private String description;
 	
+	public Item() {
+		
+	}
+	
 	public Item(int userID, String hobbie, String item) {
 		this.accountID = userID;
 		this.hobby = hobbie;
@@ -25,7 +29,7 @@ public class Item {
 		return itemID;
 	}
 
-	public int getUserID() {
+	public int getAccountID() {
 		return accountID;
 	}
 
@@ -65,8 +69,8 @@ public class Item {
 		this.itemID = itemID;
 	}
 
-	public void setUserID(int userID) {
-		this.accountID = userID;
+	public void setAccountID(int accountID) {
+		this.accountID = accountID;
 	}
 
 	public void setHobbie(String hobbie) {

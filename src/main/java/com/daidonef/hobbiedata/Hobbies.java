@@ -18,16 +18,20 @@ public class Hobbies {
 	private double rating;
 	private String description;
 	
+	public Hobbies() {
+		
+	}
+	
 	public Hobbies(int userID, String hobby) {
 		this.accountID = userID;
 		this.hobby = hobby;
 	}
 
-	public int getHobbieID() {
+	public int getHobbyID() {
 		return hobbyID;
 	}
 
-	public int getUserID() {
+	public int getAccountID() {
 		return accountID;
 	}
 
@@ -55,11 +59,11 @@ public class Hobbies {
 		return description;
 	}
 
-	public void setHobbieID(int hobbieID) {
-		this.hobbyID = hobbieID;
+	public void setHobbyID(int hobbyID) {
+		this.hobbyID = hobbyID;
 	}
 
-	public void setUserID(int userID) {
+	public void setAccountID(int userID) {
 		this.accountID = userID;
 	}
 

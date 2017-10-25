@@ -16,6 +16,10 @@ public class Location {
 	private double rating;
 	private String description;
 	
+	public Location() {
+		
+	}
+	
 	public Location(int userID, String hobbie, String location) {
 		super();
 		this.accountID = userID;
@@ -27,7 +31,7 @@ public class Location {
 		return locationID;
 	}
 
-	public int getUserID() {
+	public int getAccountID() {
 		return accountID;
 	}
 
@@ -71,8 +75,8 @@ public class Location {
 		this.locationID = locationID;
 	}
 
-	public void setUserID(int userID) {
-		this.accountID = userID;
+	public void setAccountID(int accountID) {
+		this.accountID = accountID;
 	}
 
 	public void setHobbie(String hobbie) {

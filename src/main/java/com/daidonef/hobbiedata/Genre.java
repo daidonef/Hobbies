@@ -14,9 +14,13 @@ public class Genre {
 	private double rating;
 	private String description;
 	
-	public Genre(int userID, String hobbie, String genre) {
+	public Genre() {
+		
+	}
+	
+	public Genre(int userID, String hobby, String genre) {
 		this.accountID = userID;
-		this.hobby = hobbie;
+		this.hobby = hobby;
 		this.genre = genre;
 	}
 
@@ -24,7 +28,7 @@ public class Genre {
 		return genreID;
 	}
 
-	public int getUserID() {
+	public int getAccountID() {
 		return accountID;
 	}
 
@@ -60,8 +64,8 @@ public class Genre {
 		this.genreID = genreID;
 	}
 
-	public void setUserID(int userID) {
-		this.accountID = userID;
+	public void setAccountID(int accountID) {
+		this.accountID = accountID;
 	}
 
 	public void setHobbie(String hobbie) {

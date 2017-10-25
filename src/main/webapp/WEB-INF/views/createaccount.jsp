@@ -13,7 +13,7 @@
 <p>${userNameExist }</p>
 
 <div>
-	<form name="createAccount" onsubmit="return validation()" action="createaccount" method="post">
+	<form name="createAccount" onsubmit="return validation()" action="hobbies" method="post">
 
 		<br>Username: <input type="text" class="inside" name="userName"> 
 		<br>First Name: <input type="text" class="inside" name="firstName"> 

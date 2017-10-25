@@ -17,6 +17,10 @@ public class Account {
 	private String email;
 	private String password;
 	
+	public Account() {
+		
+	}
+	
 	public Account(String userName, String firstName, String lastName, String email, String password) {
 		this.userName = userName;
 		this.firstName = firstName;
@@ -122,7 +126,7 @@ public class Account {
 		
 		if (doesUserNameExist(accounts)) {
 			model.addAttribute("userNameExist", "Username already exist choose another.");
-			return "createAccount";
+			return "createaccount";
 		}
 		
 		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();

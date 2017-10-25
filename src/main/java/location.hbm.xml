@@ -4,13 +4,14 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 <class name="com.daidonef.hobbiedata.Location" table="location">
-	<id name="scoresID" column="scoresid" type="int">
+	<id name="itemID" column="itemid" type="int">
 		<generator class="increment"></generator>
 	</id>
 	<property name="accountID" column="accountid" type="int"></property>
 	<property name="hobby" column="hobby" type="string"></property>
 	<property name="genre" column="genre" type="string"></property>
 	<property name="item" column="item" type="string"></property>
+	<property name="location" column="location" type="string"></property>
 	<property name="timeSpent" column="timespent" type="double"></property>
 	<property name="dateStarted" column="datestarted" type="date"></property>
 	<property name="lastDone" column="lastdone" type="date"></property>
