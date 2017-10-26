@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.daidonef.hobbiedata.Account;
 import com.daidonef.hobbiedata.AccountDAO;
 import com.daidonef.hobbiedata.AccountQuery;
+import com.daidonef.hobbiedata.Hobbies;
 
 /**
  * Handles requests for the application home page.
@@ -61,6 +62,11 @@ public class HomeController {
 		}
 		
 		//Methods for adding Hobbies, Genre, Items, and Location objects
+		if (request.getParameter("hobby") != null) {
+			Hobbies.addHobbies(request, session);
+			Hobbies.accessHobbies((Account) session.getAttribute("account"), model, 
+					session);
+		}
 		
 		model.addAttribute("hobbies", session.getAttribute("hobbies"));
 		

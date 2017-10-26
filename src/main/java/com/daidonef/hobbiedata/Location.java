@@ -20,9 +20,8 @@ public class Location {
 		
 	}
 	
-	public Location(int userID, String hobbie, String location) {
-		super();
-		this.accountID = userID;
+	public Location(int accountID, String hobbie, String location) {
+		this.accountID = accountID;
 		this.hobby = hobbie;
 		this.location = location;
 	}

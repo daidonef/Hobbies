@@ -1,11 +1,15 @@
 package com.daidonef.hobbiedata;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
+
+import com.daidonef.hobbies.DateFormatting;
 
 public class Hobbies {
 	
@@ -22,8 +26,8 @@ public class Hobbies {
 		
 	}
 	
-	public Hobbies(int userID, String hobby) {
-		this.accountID = userID;
+	public Hobbies(int accountID, String hobby) {
+		this.accountID = accountID;
 		this.hobby = hobby;
 	}
 
@@ -100,6 +104,51 @@ public class Hobbies {
 		model.addAttribute("hobbies", hobbies);
 		
 		return hobbies;
+	}
+	
+	public static void addHobbies(HttpServletRequest request, HttpSession session) {
+		
+		if (noHobby(request, session)) {
+			Hobbies hobby = new Hobbies(((Account)session.getAttribute("account")).getAccountID(), 
+					request.getParameter("hobby"));
+			hobby = addInfoHobby(hobby, request);
+			HobbiesDAO.addHobbies(hobby);
+		}
+	}
+	
+	private static boolean noHobby(HttpServletRequest request, HttpSession session){
+		
+		List<Hobbies> hobbies = (ArrayList<Hobbies>) session.getAttribute("hobbies");
+		
+		for (Hobbies hobby : hobbies) {
+			if (hobby.getHobby().equals(request.getParameter("hobby"))) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private static Hobbies addInfoHobby(Hobbies hobby, HttpServletRequest request) {
+		
+		if (request.getParameter("timeSpent") != null) {
+			hobby.setTimeSpent(Double.parseDouble(request.getParameter("timeSpent")));
+		}
+		if (request.getParameter("dateStarted") != null) {
+			DateFormatting dateFormat = new DateFormatting(request.getParameter("dateStarted"));
+			hobby.setDateStarted(dateFormat.getDate());
+		}
+		if (request.getParameter("lastDone") != null) {
+			DateFormatting dateFormat = new DateFormatting(request.getParameter("lastDone"));
+			hobby.setLastDone(dateFormat.getDate());
+		}
+		if (request.getParameter("rating") != null) {
+			hobby.setRating(Double.parseDouble(request.getParameter("rating")));
+		}
+		if (request.getParameter("description") != null) {
+			hobby.setDescription(request.getParameter("description"));
+		}
+		
+		return hobby;
 	}
 	
 }

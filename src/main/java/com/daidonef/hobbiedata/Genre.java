@@ -18,8 +18,8 @@ public class Genre {
 		
 	}
 	
-	public Genre(int userID, String hobby, String genre) {
-		this.accountID = userID;
+	public Genre(int accountID, String hobby, String genre) {
+		this.accountID = accountID;
 		this.hobby = hobby;
 		this.genre = genre;
 	}

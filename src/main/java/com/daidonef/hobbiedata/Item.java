@@ -19,8 +19,8 @@ public class Item {
 		
 	}
 	
-	public Item(int userID, String hobbie, String item) {
-		this.accountID = userID;
+	public Item(int accountID, String hobbie, String item) {
+		this.accountID = accountID;
 		this.hobby = hobbie;
 		this.item = item;
 	}
