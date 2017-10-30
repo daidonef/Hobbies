@@ -42,20 +42,83 @@
 			<th>Last Done</th>
 			<th>Rating</th>
 			<th>Description</th>
+			<th>Add new Genre</th>
 		</tr>
-		<c:forEach items="${hobbies }" var="hobby">
+		<c:forEach items="${hobbies }" var="hobby" varStatus="status">
 			<tr>
-				<td>${hobby.hobby}</td>
+				<td>
+				<button onclick="genres('${hobby.hobby}')">${hobby.hobby}</button>
+				</td>
 				<td>${hobby.timeSpent}</td>
 				<td>${hobby.dateStarted}</td>
 				<td>${hobby.lastDone}</td>
 				<td>${hobby.rating}</td>
 				<td>${hobby.description}</td>
+				<td>
+				
+				<form name="addGenre" action="hobbies" method="post">
+	
+					<input type="hidden" value="${hobby.hobby }" name="hobbyG">
+					<br>Genre: <input type="text" class="inside" name="genre"> 
+					<br>Total time spent in hours: <input type="text" class="inside" name="timeSpentG"> 
+					<br>Date Started: <input type="date" class="inside" name="dateStartedG"> 
+					<br>Date Last Done: <input type="date" class="inside" name="lastDoneG"> 
+					<br>Rating (0 to 10 with 0.5 intervals): <input type="number" class="inside" name="ratingG" 
+						min="0" max="10" step="0.5"> 
+					<br>Description: <input type="text" class="inside" name="descriptionG"> 
+					<br><br>
+		
+					<input type="submit" class="inside" value="Add Genre">
+	
+				</form>
+				
+				</td>
 			</tr>
+			<tr id="${hobby.hobby }"><td>
+			<table>
+				<tr>
+					<th>Genre</th>
+					<th>Time Spent(Hours)</th>
+					<th>Date Started</th>
+					<th>Last Done</th>
+					<th>Rating</th>
+					<th>Description</th>
+				</tr>
+				<tr>
+					<c:forEach items="${genres }" var="genre">
+						<c:if test="${hobby.hobby == genre.hobby }">
+							<td>${genre.genre }</td>
+							<td>${genre.timeSpent }</td>
+							<td>${genre.dateStarted }</td>
+							<td>${genre.lastDone }</td>
+							<td>${genre.rating }</td>
+							<td>${genre.description }</td>
+						</c:if>
+					</c:forEach>
+				</tr>
+			</table>
+			</td></tr>
 		</c:forEach>
 	</table>
 
 </p>
+
+<script>
+
+	function genres(hobbyG) {
+		
+		//var hobbyG = document.forms["addGenre"]["hobbyG"].value;
+		
+		var x = document.getElementById(hobbyG);
+		
+	    if (x.style.display === "none") {
+	        x.style.display = "block";
+	    } else {
+	        x.style.display = "none";
+	    }
+	}
+
+</script>
 
 </body>
 </html>

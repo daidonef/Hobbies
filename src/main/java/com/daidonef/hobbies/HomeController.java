@@ -68,6 +68,8 @@ public class HomeController {
 					session);
 		}
 		
+		
+		
 		model.addAttribute("hobbies", session.getAttribute("hobbies"));
 		
 		return "hobbies";
