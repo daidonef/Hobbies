@@ -74,7 +74,7 @@
 				
 				</td>
 			</tr>
-			<tr id="${hobby.hobby }"><td>
+			<tr id="${hobby.hobby }"><td colspan="7">
 			<table>
 				<tr>
 					<th>Genre</th>
@@ -107,16 +107,17 @@
 
 	function genres(hobbyG) {
 		
-		//var hobbyG = document.forms["addGenre"]["hobbyG"].value;
-		
 		var x = document.getElementById(hobbyG);
 		
 	    if (x.style.display === "none") {
-	        x.style.display = "block";
+	        x.style.display = "table-row";
+	        //x.colSpan = "7";
 	    } else {
 	        x.style.display = "none";
 	    }
 	}
+	
+	
 
 </script>
 
