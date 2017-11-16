@@ -20,9 +20,9 @@ public class Location {
 		
 	}
 	
-	public Location(int accountID, String hobbie, String location) {
+	public Location(int accountID, String hobby, String location) {
 		this.accountID = accountID;
-		this.hobby = hobbie;
+		this.hobby = hobby;
 		this.location = location;
 	}
 
@@ -34,7 +34,7 @@ public class Location {
 		return accountID;
 	}
 
-	public String getHobbie() {
+	public String getHobby() {
 		return hobby;
 	}
 
@@ -78,8 +78,8 @@ public class Location {
 		this.accountID = accountID;
 	}
 
-	public void setHobbie(String hobbie) {
-		this.hobby = hobbie;
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
 	}
 
 	public void setGenre(String genre) {

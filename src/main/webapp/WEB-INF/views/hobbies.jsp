@@ -74,28 +74,34 @@
 				
 				</td>
 			</tr>
-			<tr id="${hobby.hobby }"><td colspan="7">
+			<tr id="${hobby.hobby }" style="display:none"><td colspan="7">
 			<table>
-				<tr>
-					<th>Genre</th>
-					<th>Time Spent(Hours)</th>
-					<th>Date Started</th>
-					<th>Last Done</th>
-					<th>Rating</th>
-					<th>Description</th>
-				</tr>
-				<tr>
-					<c:forEach items="${genres }" var="genre">
-						<c:if test="${hobby.hobby == genre.hobby }">
+				<c:set var="notBreaking" value="true"/> <%-- For breaking out of loop later --%>
+				<c:forEach items="${genres }" var="genre">
+					<c:if test="${hobby.hobby == genre.hobby && notBreaking}">
+						<tr>
+							<th>Genre</th>
+							<th>Time Spent(Hours)</th>
+							<th>Date Started</th>
+							<th>Last Done</th>
+							<th>Rating</th>
+							<th>Description</th>
+						</tr>
+						<c:set var="notBreaking" value="false"/> <%-- breaks out of loop --%>
+					</c:if>
+				</c:forEach>
+				<c:forEach items="${genres }" var="genre">
+					<c:if test="${hobby.hobby == genre.hobby }">
+						<tr>
 							<td>${genre.genre }</td>
 							<td>${genre.timeSpent }</td>
 							<td>${genre.dateStarted }</td>
 							<td>${genre.lastDone }</td>
 							<td>${genre.rating }</td>
 							<td>${genre.description }</td>
-						</c:if>
-					</c:forEach>
-				</tr>
+						</tr>
+					</c:if>
+				</c:forEach>
 			</table>
 			</td></tr>
 		</c:forEach>
@@ -111,7 +117,6 @@
 		
 	    if (x.style.display === "none") {
 	        x.style.display = "table-row";
-	        //x.colSpan = "7";
 	    } else {
 	        x.style.display = "none";
 	    }

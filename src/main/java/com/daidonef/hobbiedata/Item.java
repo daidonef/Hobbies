@@ -19,9 +19,9 @@ public class Item {
 		
 	}
 	
-	public Item(int accountID, String hobbie, String item) {
+	public Item(int accountID, String hobby, String item) {
 		this.accountID = accountID;
-		this.hobby = hobbie;
+		this.hobby = hobby;
 		this.item = item;
 	}
 
@@ -33,7 +33,7 @@ public class Item {
 		return accountID;
 	}
 
-	public String getHobbie() {
+	public String getHobby() {
 		return hobby;
 	}
 
@@ -73,8 +73,8 @@ public class Item {
 		this.accountID = accountID;
 	}
 
-	public void setHobbie(String hobbie) {
-		this.hobby = hobbie;
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
 	}
 
 	public void setGenre(String genre) {

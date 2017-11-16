@@ -1,6 +1,15 @@
 package com.daidonef.hobbiedata;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.ui.Model;
+
+import com.daidonef.hobbies.DateFormatting;
 
 public class Genre {
 	
@@ -32,7 +41,7 @@ public class Genre {
 		return accountID;
 	}
 
-	public String getHobbie() {
+	public String getHobby() {
 		return hobby;
 	}
 
@@ -68,8 +77,8 @@ public class Genre {
 		this.accountID = accountID;
 	}
 
-	public void setHobbie(String hobbie) {
-		this.hobby = hobbie;
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
 	}
 
 	public void setGenre(String genre) {
@@ -94,6 +103,62 @@ public class Genre {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public static List<Genre> accessGenres(Account account, Model model, HttpSession session) {
+		
+		List<Genre> genres = GenreDAO.getGenre(GenreQuery.gettingGenres(account.getAccountID()));
+		
+		session.setAttribute("genres", genres);
+		model.addAttribute("genres", genres);
+		
+		return genres;
+	}
+	
+	public static void addGenre(HttpServletRequest request, HttpSession session) {
+		
+		if (noGenre(request, session)) {
+			Genre genre = new Genre(((Account)session.getAttribute("account")).getAccountID(),
+					request.getParameter("hobbyG"), request.getParameter("genre"));
+			genre = addInfoGenre(genre, request);
+			GenreDAO.addGenre(genre);
+		}
+		
+	}
+	
+	private static boolean noGenre(HttpServletRequest request, HttpSession session) {
+		
+		List<Genre> genres = (ArrayList<Genre>) session.getAttribute("genres");
+		
+		for (Genre genre : genres) {
+			if (genre.getGenre().equals(request.getParameter("genre"))) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private static Genre addInfoGenre(Genre genre, HttpServletRequest request) {
+		
+		if (request.getParameter("timeSpentG") != null) {
+			genre.setTimeSpent(Double.parseDouble(request.getParameter("timeSpentG")));
+		}
+		if (request.getParameter("dateStartedG") != null) {
+			DateFormatting dateFormat = new DateFormatting(request.getParameter("dateStartedG"));
+			genre.setDateStarted(dateFormat.getDate());
+		}
+		if (request.getParameter("lastDoneG") != null) {
+			DateFormatting dateFormat = new DateFormatting(request.getParameter("lastDoneG"));
+			genre.setLastDone(dateFormat.getDate());
+		}
+		if (request.getParameter("ratingG") != null) {
+			genre.setRating(Double.parseDouble(request.getParameter("ratingG")));
+		}
+		if (request.getParameter("descriptionG") != null) {
+			genre.setDescription(request.getParameter("descriptionG"));
+		}
+		
+		return genre;
 	}
 
 }
