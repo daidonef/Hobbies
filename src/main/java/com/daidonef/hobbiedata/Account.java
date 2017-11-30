@@ -90,8 +90,10 @@ public class Account {
 			
 			//Stores hobbies of account user in sessions "hobbies" and model "hobbies".
 			Hobbies.accessHobbies(account, model, session);
-			////Stores genres of account user in sessions "genres" and model "genres".
+			//Stores genres of account user in sessions "genres" and model "genres".
 			Genre.accessGenres(account, model, session);
+			//Stores items of account user in sessions "items" and model "itmes".
+			Item.accessItem(account, model, session);
 			
 			return "hobbies";
 		}

@@ -55,7 +55,8 @@
 				<td>${hobby.rating}</td>
 				<td>${hobby.description}</td>
 				<td>
-				
+				<button onclick="addgenre('${hobby.hobby}AG')">Add Genre</button>
+				<div id="${hobby.hobby}AG" style="display:none">
 				<form name="addGenre" action="hobbies" method="post">
 	
 					<input type="hidden" value="${hobby.hobby }" name="hobbyG">
@@ -69,6 +70,24 @@
 					<br><br>
 		
 					<input type="submit" class="inside" value="Add Genre">
+	
+				</form>
+				</div>
+				
+				<form name="addItem" action="hobbies" method="post">
+	
+					<input type="hidden" value="${hobby.hobby }" name="hobbyI">
+					<br>Item: <input type="text" class="inside" name=item>
+					<br>Genre: <input type="text" class="inside" name="genreI"> 
+					<br>Total time spent in hours: <input type="text" class="inside" name="timeSpentI"> 
+					<br>Date Started: <input type="date" class="inside" name="dateStartedI"> 
+					<br>Date Last Done: <input type="date" class="inside" name="lastDoneI"> 
+					<br>Rating (0 to 10 with 0.5 intervals): <input type="number" class="inside" name="ratingI" 
+						min="0" max="10" step="0.5"> 
+					<br>Description: <input type="text" class="inside" name="descriptionI"> 
+					<br><br>
+		
+					<input type="submit" class="inside" value="Add Item">
 	
 				</form>
 				
@@ -120,6 +139,18 @@
 	    } else {
 	        x.style.display = "none";
 	    }
+	}
+	
+	function addgenre(hobbyAG) {
+		
+		var x = document.getElementById(hobbyAG);
+		
+	    if (x.style.display === "none") {
+	        x.style.display = "block";
+	    } else {
+	        x.style.display = "none";
+	    }
+		
 	}
 	
 	

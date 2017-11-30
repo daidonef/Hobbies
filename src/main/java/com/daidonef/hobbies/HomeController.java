@@ -15,6 +15,7 @@ import com.daidonef.hobbiedata.AccountDAO;
 import com.daidonef.hobbiedata.AccountQuery;
 import com.daidonef.hobbiedata.Genre;
 import com.daidonef.hobbiedata.Hobbies;
+import com.daidonef.hobbiedata.Item;
 
 /**
  * Handles requests for the application home page.
@@ -68,16 +69,22 @@ public class HomeController {
 					session);
 		}
 		
-		//Need to test adding and accessing genres
 		if (request.getParameter("genre") != null) {
 			Genre.addGenre(request, session);
 			Genre.accessGenres((Account) session.getAttribute("account"), model, session);
 		}
 		
-		//Need methods for adding and accessing items and locations.
+		//Need to test adding and accessing items.
+		if (request.getParameter("item") != null) {
+			Item.addItem(request, session);
+			Item.accessItem((Account) session.getAttribute("account"), model, session);
+		}
+		
+		//Need methods for adding and accessing locations.
 		
 		model.addAttribute("hobbies", session.getAttribute("hobbies"));
 		model.addAttribute("genres", session.getAttribute("genres"));
+		model.addAttribute("items", session.getAttribute("items"));
 		
 		return "hobbies";
 	}
