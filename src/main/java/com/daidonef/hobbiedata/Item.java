@@ -128,7 +128,7 @@ public class Item {
 		
 		if (noItem(request, session)) {
 			Item item = new Item(((Account)session.getAttribute("account")).getAccountID(),
-					request.getParameter("hobbyI"), request.getParameter("genreI"));
+					request.getParameter("hobbyI"), request.getParameter("item"));
 			item = addInfoItem(item, request);
 			ItemDAO.addItem(item);
 		}
@@ -149,6 +149,9 @@ public class Item {
 	
 	private static Item addInfoItem(Item item, HttpServletRequest request) {
 		
+		if (request.getParameter("genreI") != null) {
+			item.setTimeSpent(Double.parseDouble(request.getParameter("genreI")));
+		}
 		if (request.getParameter("timeSpentI") != null) {
 			item.setTimeSpent(Double.parseDouble(request.getParameter("timeSpentI")));
 		}

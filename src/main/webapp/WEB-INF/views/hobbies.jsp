@@ -15,6 +15,7 @@
 
 <p>
 
+	<!-- To Add Hobby -->
 	<form name="addHobby" action="hobbies" method="post">
 	
 		<br>Hobby: <input type="text" class="inside" name="hobby"> 
@@ -33,8 +34,9 @@
 </p>
 
 <p>
-
+	<!-- The main table which displays the hobbies -->
 	<table>
+		<!-- Headings for main table -->
 		<tr>
 			<th>Hobby</th>
 			<th>Time Spent(Hours)</th>
@@ -44,6 +46,7 @@
 			<th>Description</th>
 			<th>Add new Genre</th>
 		</tr>
+		<!-- Displays hobbies for the main table for each hobby for that account -->
 		<c:forEach items="${hobbies }" var="hobby" varStatus="status">
 			<tr>
 				<td>
@@ -55,9 +58,10 @@
 				<td>${hobby.rating}</td>
 				<td>${hobby.description}</td>
 				<td>
-				<button onclick="addgenre('${hobby.hobby}AG')">Add Genre</button>
-				<div id="${hobby.hobby}AG" style="display:none">
-				<form name="addGenre" action="hobbies" method="post">
+				
+				<!-- Button for the form to add genre for that hobby -->
+				<button onclick="addform('${hobby.hobby}AG')">Genre Form</button>
+				<form id="${hobby.hobby}AG" style="display:none" name="addGenre" action="hobbies" method="post">
 	
 					<input type="hidden" value="${hobby.hobby }" name="hobbyG">
 					<br>Genre: <input type="text" class="inside" name="genre"> 
@@ -72,13 +76,13 @@
 					<input type="submit" class="inside" value="Add Genre">
 	
 				</form>
-				</div>
 				
-				<form name="addItem" action="hobbies" method="post">
+				<!-- Button for the form to add item for that hobby -->
+				<button onclick="addform('${hobby.hobby}AI')">Item Form</button>
+				<form id="${hobby.hobby}AI" style="display:none" name="addItem" action="hobbies" method="post">
 	
 					<input type="hidden" value="${hobby.hobby }" name="hobbyI">
-					<br>Item: <input type="text" class="inside" name=item>
-					<br>Genre: <input type="text" class="inside" name="genreI"> 
+					<br>Item: <input type="text" class="inside" name=item> 
 					<br>Total time spent in hours: <input type="text" class="inside" name="timeSpentI"> 
 					<br>Date Started: <input type="date" class="inside" name="dateStartedI"> 
 					<br>Date Last Done: <input type="date" class="inside" name="lastDoneI"> 
@@ -93,11 +97,25 @@
 				
 				</td>
 			</tr>
+			
+			<!-- For when there is a genre for that hobby -->
+			<c:set var="breakChooseLoop" value="true"/> <%-- For breaking out of loop later --%>
+			<c:forEach items="${genres }" var="genreTest" varStatus="status">
+			
+			<c:if test="${breakChooseLoop }">
+			
+			<!-- Need way to go to items instead of genres if there is no genre for that hobby -->
+			<c:choose>
+			
+			<c:when test="${hobby.hobby == genreTest.hobby }">
+			
 			<tr id="${hobby.hobby }" style="display:none"><td colspan="7">
+			<!-- Table for genre under hobby -->
 			<table>
 				<c:set var="notBreaking" value="true"/> <%-- For breaking out of loop later --%>
 				<c:forEach items="${genres }" var="genre">
 					<c:if test="${hobby.hobby == genre.hobby && notBreaking}">
+						<!-- Heading for genre under hobby -->
 						<tr>
 							<th>Genre</th>
 							<th>Time Spent(Hours)</th>
@@ -111,18 +129,154 @@
 				</c:forEach>
 				<c:forEach items="${genres }" var="genre">
 					<c:if test="${hobby.hobby == genre.hobby }">
+						<!-- Genres information under hobby -->
 						<tr>
-							<td>${genre.genre }</td>
+							<!-- Button for getting to items under genre -->
+							<td>
+								<button onclick="genres('${hobby.hobby}I')">${genre.genre}</button>
+							</td>
 							<td>${genre.timeSpent }</td>
 							<td>${genre.dateStarted }</td>
 							<td>${genre.lastDone }</td>
 							<td>${genre.rating }</td>
 							<td>${genre.description }</td>
 						</tr>
+						
+						<!-- Need way to bring out items if there is no genre, and with genre -->
+						<tr id="${hobby.hobby }I" style="display:none"><td colspan="7">
+						<!-- Table for items under genre -->
+						<table>
+							<c:set var="notBreaking" value="true"/> <%-- For breaking out of loop later --%>
+							<c:forEach items="${items }" var="item">
+								<c:if test="${hobby.hobby == item.hobby && notBreaking}">
+									<!-- Heading to item under genre -->
+									<tr>
+										<th>Item</th>
+										<th>Time Spent(Hours)</th>
+										<th>Date Started</th>
+										<th>Last Done</th>
+										<th>Rating</th>
+										<th>Description</th>
+									</tr>
+									<c:set var="notBreaking" value="false"/> <%-- breaks out of loop --%>
+								</c:if>
+							</c:forEach>
+							<c:forEach items="${items }" var="item">
+								<c:if test="${hobby.hobby == item.hobby }">
+									<!-- Items information under genre -->
+									<tr>
+										<td>${item.item }</td>
+										<td>${item.timeSpent }</td>
+										<td>${item.dateStarted }</td>
+										<td>${item.lastDone }</td>
+										<td>${item.rating }</td>
+										<td>${item.description }</td>
+										<td>
+				
+											<!-- Button for the form to add item for that genre -->
+											<button onclick="addform('${hobby.hobby}AIG')">Item Form</button>
+											<form id="${hobby.hobby}AIG" style="display:none" name="addItem" action="hobbies" method="post">
+	
+												<input type="hidden" value="${hobby.hobby }" name="hobbyI">
+												<br>Item: <input type="text" class="inside" name=item>
+												<input type="hidden" value="${genre.genre }" name="genreI"> 
+												<br>Total time spent in hours: <input type="text" class="inside" name="timeSpentI"> 
+												<br>Date Started: <input type="date" class="inside" name="dateStartedI"> 
+												<br>Date Last Done: <input type="date" class="inside" name="lastDoneI"> 
+												<br>Rating (0 to 10 with 0.5 intervals): <input type="number" class="inside" name="ratingI" 
+													min="0" max="10" step="0.5"> 
+												<br>Description: <input type="text" class="inside" name="descriptionI"> 
+												<br><br>
+		
+												<input type="submit" class="inside" value="Add Item">
+	
+											</form>
+				
+										</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</table>
+						</td></tr>
+						
 					</c:if>
 				</c:forEach>
 			</table>
 			</td></tr>
+			
+			<c:set var="breakChooseLoop" value="false"/> <%-- breaks out of loop --%>
+			</c:when>
+			
+			<c:when test="${hobby.hobby == items[status.index].hobby }">
+			
+			<tr id="${hobby.hobby }" style="display:none"><td colspan="7">
+			<!-- Table for Items under Hobby -->
+			<table>
+			
+				<c:set var="notBreaking" value="true"/> <%-- For breaking out of loop later --%>
+				<c:forEach items="${items }" var="item">
+					<c:if test="${hobby.hobby == item.hobby && notBreaking}">
+						<!-- Heading to item under hobby -->
+						<tr>
+							<th>Item</th>
+							<th>Time Spent(Hours)</th>
+							<th>Date Started</th>
+							<th>Last Done</th>
+							<th>Rating</th>
+							<th>Description</th>
+						</tr>
+						<c:set var="notBreaking" value="false"/> <%-- breaks out of loop --%>
+					</c:if>
+				</c:forEach>
+				<c:forEach items="${items }" var="item">
+					<c:if test="${hobby.hobby == item.hobby }">
+						<!-- Items information under hobby -->
+						<tr>
+							<td>${item.item }</td>
+							<td>${item.timeSpent }</td>
+							<td>${item.dateStarted }</td>
+							<td>${item.lastDone }</td>
+							<td>${item.rating }</td>
+							<td>${item.description }</td>
+							<td>
+				
+								<!-- Button for the form to add item for that hobby -->
+								<button onclick="addform('${hobby.hobby}AIG')">Item Form</button>
+								<form id="${hobby.hobby}AI" style="display:none" name="addItem" action="hobbies" method="post">
+	
+									<input type="hidden" value="${hobby.hobby }" name="hobbyI">
+									<br>Item: <input type="text" class="inside" name=item> 
+									<br>Total time spent in hours: <input type="text" class="inside" name="timeSpentI"> 
+									<br>Date Started: <input type="date" class="inside" name="dateStartedI"> 
+									<br>Date Last Done: <input type="date" class="inside" name="lastDoneI"> 
+									<br>Rating (0 to 10 with 0.5 intervals): <input type="number" class="inside" name="ratingI" 
+										min="0" max="10" step="0.5"> 
+									<br>Description: <input type="text" class="inside" name="descriptionI"> 
+									<br><br>
+		
+									<input type="submit" class="inside" value="Add Item">
+	
+								</form>
+				
+							</td>
+						</tr>
+					</c:if>
+				</c:forEach>
+			
+			</table>
+			</td></tr>
+			
+			<c:set var="breakChooseLoop" value="false"/> <%-- breaks out of loop --%>
+			</c:when>
+			
+			<c:otherwise>
+			
+			</c:otherwise>
+			
+			</c:choose>
+			</c:if>
+			</c:forEach>
+		
 		</c:forEach>
 	</table>
 
@@ -141,9 +295,9 @@
 	    }
 	}
 	
-	function addgenre(hobbyAG) {
+	function addform(formID) {
 		
-		var x = document.getElementById(hobbyAG);
+		var x = document.getElementById(formID);
 		
 	    if (x.style.display === "none") {
 	        x.style.display = "block";
