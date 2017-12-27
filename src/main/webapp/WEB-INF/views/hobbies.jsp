@@ -59,6 +59,7 @@
 				<td>${hobby.description}</td>
 				<td>
 				
+				<!-- Need if statement to display right buttons at the right time -->
 				<!-- Button for the form to add genre for that hobby -->
 				<button onclick="addform('${hobby.hobby}AG')">Genre Form</button>
 				<form id="${hobby.hobby}AG" style="display:none" name="addGenre" action="hobbies" method="post">
@@ -82,7 +83,7 @@
 				<form id="${hobby.hobby}AI" style="display:none" name="addItem" action="hobbies" method="post">
 	
 					<input type="hidden" value="${hobby.hobby }" name="hobbyI">
-					<br>Item: <input type="text" class="inside" name=item> 
+					<br>Item: <input type="text" class="inside" name="item"> 
 					<br>Total time spent in hours: <input type="text" class="inside" name="timeSpentI"> 
 					<br>Date Started: <input type="date" class="inside" name="dateStartedI"> 
 					<br>Date Last Done: <input type="date" class="inside" name="lastDoneI"> 
@@ -123,6 +124,7 @@
 							<th>Last Done</th>
 							<th>Rating</th>
 							<th>Description</th>
+							<th>Add new Item</th>
 						</tr>
 						<c:set var="notBreaking" value="false"/> <%-- breaks out of loop --%>
 					</c:if>
@@ -140,6 +142,28 @@
 							<td>${genre.lastDone }</td>
 							<td>${genre.rating }</td>
 							<td>${genre.description }</td>
+							<td>
+							
+								<!-- Button for the form to add item for that genre -->
+								<button onclick="addform('${hobby.hobby}AIG')">Item Form</button>
+								<form id="${hobby.hobby}AIG" style="display:none" name="addItem" action="hobbies" method="post">
+	
+									<input type="hidden" value="${hobby.hobby }" name="hobbyI">
+									<br>Item: <input type="text" class="inside" name="item">
+									<input type="hidden" value="${genre.genre }" name="genreI"> 
+									<br>Total time spent in hours: <input type="text" class="inside" name="timeSpentI"> 
+									<br>Date Started: <input type="date" class="inside" name="dateStartedI"> 
+									<br>Date Last Done: <input type="date" class="inside" name="lastDoneI"> 
+									<br>Rating (0 to 10 with 0.5 intervals): <input type="number" class="inside" name="ratingI" 
+										min="0" max="10" step="0.5"> 
+									<br>Description: <input type="text" class="inside" name="descriptionI"> 
+									<br><br>
+		
+									<input type="submit" class="inside" value="Add Item">
+	
+								</form>
+							
+							</td>
 						</tr>
 						
 						<!-- Need way to bring out items if there is no genre, and with genre -->
@@ -171,28 +195,6 @@
 										<td>${item.lastDone }</td>
 										<td>${item.rating }</td>
 										<td>${item.description }</td>
-										<td>
-				
-											<!-- Button for the form to add item for that genre -->
-											<button onclick="addform('${hobby.hobby}AIG')">Item Form</button>
-											<form id="${hobby.hobby}AIG" style="display:none" name="addItem" action="hobbies" method="post">
-	
-												<input type="hidden" value="${hobby.hobby }" name="hobbyI">
-												<br>Item: <input type="text" class="inside" name=item>
-												<input type="hidden" value="${genre.genre }" name="genreI"> 
-												<br>Total time spent in hours: <input type="text" class="inside" name="timeSpentI"> 
-												<br>Date Started: <input type="date" class="inside" name="dateStartedI"> 
-												<br>Date Last Done: <input type="date" class="inside" name="lastDoneI"> 
-												<br>Rating (0 to 10 with 0.5 intervals): <input type="number" class="inside" name="ratingI" 
-													min="0" max="10" step="0.5"> 
-												<br>Description: <input type="text" class="inside" name="descriptionI"> 
-												<br><br>
-		
-												<input type="submit" class="inside" value="Add Item">
-	
-											</form>
-				
-										</td>
 									</tr>
 								</c:if>
 							</c:forEach>

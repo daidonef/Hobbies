@@ -150,7 +150,7 @@ public class Item {
 	private static Item addInfoItem(Item item, HttpServletRequest request) {
 		
 		if (request.getParameter("genreI") != null) {
-			item.setTimeSpent(Double.parseDouble(request.getParameter("genreI")));
+			item.setGenre(request.getParameter("genreI"));
 		}
 		if (request.getParameter("timeSpentI") != null) {
 			item.setTimeSpent(Double.parseDouble(request.getParameter("timeSpentI")));
