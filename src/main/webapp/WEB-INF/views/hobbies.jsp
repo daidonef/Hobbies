@@ -90,7 +90,7 @@
 				
 				</c:when>
 				
-				<c:when test="${hobby.hobby == item[status.index].hobby }">
+				<c:when test="${status.index < items.size() && hobby.hobby == items[status.index].hobby }">
 				
 				<!-- Button for the form to add item for that hobby -->
 				<button onclick="addform('${hobby.hobby}AI')">Item Form</button>
@@ -270,7 +270,7 @@
 			<c:set var="breakChooseLoop" value="false"/> <%-- breaks out of loop --%>
 			</c:when>
 			
-			<c:when test="${hobby.hobby == items[status.index].hobby }">
+			<c:when test="${status.index < items.size() && hobby.hobby == items[status.index].hobby }">
 			
 			<tr id="${hobby.hobby }" style="display:none"><td colspan="7">
 			<!-- Table for Items under Hobby -->
